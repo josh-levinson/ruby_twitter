@@ -3,7 +3,8 @@ require 'byebug'
 require 'typhoeus'
 require 'oauth/request_proxy/typhoeus_request'
 
-require 'lib/authorize.rb'
+$LOAD_PATH << './lib'
+require 'authorizer'
 
 create_tweet_url = "https://api.twitter.com/2/tweets"
 
@@ -28,7 +29,7 @@ def create_tweet(url, oauth_params)
 	return response
 end
 
-authorizer = Authorize.new
+authorizer = Authorizer.new
 oauth_params = { consumer: authorizer.oauth_consumer, token: authorizer.oauth_token }
 response = create_tweet(create_tweet_url, oauth_params)
 puts response.code, JSON.pretty_generate(JSON.parse(response.body))
