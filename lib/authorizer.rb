@@ -1,6 +1,6 @@
 require 'oauth'
 
-class Authorize
+class Authorizer
   def initialize
     @consumer_key = ENV["CONSUMER_KEY"]
     @consumer_secret = ENV["CONSUMER_SECRET"]
