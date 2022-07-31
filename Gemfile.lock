@@ -1,0 +1,23 @@
+GEM
+  remote: https://rubygems.org/
+  specs:
+    dotenv (2.7.6)
+    ethon (0.15.0)
+      ffi (>= 1.15.0)
+    ffi (1.15.5)
+    json (2.6.2)
+    oauth (0.5.10)
+    typhoeus (1.4.0)
+      ethon (>= 0.9.0)
+
+PLATFORMS
+  x86_64-linux
+
+DEPENDENCIES
+  dotenv
+  json
+  oauth
+  typhoeus
+
+BUNDLED WITH
+   2.3.3
