@@ -4,7 +4,6 @@ class Authorizer
   def initialize
     @consumer_key = ENV["CONSUMER_KEY"]
     @consumer_secret = ENV["CONSUMER_SECRET"]
-    @oauth_token = ENV["OAUTH_TOKEN"]
   end
 
   def oauth_consumer
@@ -12,7 +11,8 @@ class Authorizer
   end
 
   def oauth_token
-    return @oauth_token unless @oauth_token.nil?
+    return use_existing_access_token(consumer) if ENV["ACCESS_TOKEN"]
+
     # PIN-based OAuth flow - Step 1
     request_token = get_request_token(consumer)
     # PIN-based OAuth flow - Step 2
@@ -55,5 +55,10 @@ class Authorizer
     access_token = request_token.get_access_token({:oauth_verifier => pin})
 
     return access_token
+  end
+
+  def use_existing_access_token(consumer)
+    oauth_hash = { oauth_token: ENV["ACCESS_TOKEN"], oauth_token_secret: ENV["ACCESS_TOKEN_SECRET"] }
+    OAuth::AccessToken.from_hash(consumer, oauth_hash)
   end
 end
